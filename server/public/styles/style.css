@@ -1,0 +1,39 @@
+html,
+body {
+  margin: 0px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+header {
+  background-color: rgb(56, 92, 211);
+  /* text-align: center; */
+  display: grid;
+}
+
+h1 {
+  float: center;
+  margin: 30px;
+}
+
+.checkImage {
+  width: 200px;
+  height: 200px;
+}
+
+div {
+  margin: 30px;
+}
+
+.taskTable {
+  border-collapse: collapse;
+}
+
+.taskTable th,
+td {
+  border: solid black 1px;
+  padding: 6px 10px;
+}
+
+.green {
+  background-color: green;
+}
