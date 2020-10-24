@@ -15,4 +15,33 @@ function submitTask() {
   saveTask(taskToSend);
 }
 
-function saveTask() {}
+function getTask() {
+  console.log('in getTask');
+  $.ajax({
+    type: 'GET',
+    url: '/list',
+  })
+    .then(function (response) {
+      render(response);
+    })
+    .catch(function (err) {
+      console.log(err);
+      res.sendStatus(500);
+    });
+}
+
+function saveTask(newTask) {
+  console.log('in saveTask', newTask);
+  $.ajax({
+    type: 'POST',
+    url: '/list',
+    data: newTask,
+  })
+    .then(() => {
+      getTask();
+    })
+    .catch((err) => {
+      console.log(err);
+      alert('DID NOT SEND TASK');
+    });
+}
