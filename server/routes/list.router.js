@@ -32,11 +32,11 @@ router.get('/', function (req, res) {
 router.post('/', function (req, res) {
   const taskToAdd = req.body; // This the data we sent
   console.log('In POST route - product:', taskToAdd);
-  const query = 'INSERT INTO "to_do_list" ("task") VALUES ($1);';
+  const query = 'INSERT INTO "to_do_list" ("task", "status") VALUES ($1, $2);';
   // $ with index (e.g. $1) will help improve the security of your db
   // Avoids SQL injection -- see bobby drop table comic
   pool
-    .query(query, [taskToAdd.task])
+    .query(query, [taskToAdd.task, taskToAdd.status])
     .then(() => {
       res.sendStatus(201);
     })
