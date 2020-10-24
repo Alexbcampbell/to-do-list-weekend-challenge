@@ -32,16 +32,48 @@ router.get('/', function (req, res) {
 router.post('/', function (req, res) {
   const taskToAdd = req.body; // This the data we sent
   console.log('In POST route - product:', taskToAdd);
-  const query = 'INSERT INTO "to_do_list" ("task", "status") VALUES ($1, $2);';
+  const query =
+    'INSERT INTO "to_do_list" ("task", "complete") VALUES ($1, $2);';
   // $ with index (e.g. $1) will help improve the security of your db
   // Avoids SQL injection -- see bobby drop table comic
   pool
-    .query(query, [taskToAdd.task, taskToAdd.status])
+    .query(query, [taskToAdd.task, taskToAdd.complete])
     .then(() => {
       res.sendStatus(201);
     })
     .catch((error) => {
       console.log('Error in POST', error);
+      res.sendStatus(500);
+    });
+});
+
+router.put('/:id', (req, res) => {
+  const newTaskInfo = req.body;
+  const queryText = `UPDATE "to_do_list" SET complete=$1 WHERE id=$2;`;
+  const queryArray = [newTaskInfo.complete, req.params.id];
+
+  pool
+    .query(queryText, queryArray)
+    .then((dbResponse) => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.warning(err);
+      res.sendStatus(500);
+    });
+});
+
+router.delete('/:id', (req, res) => {
+  const queryText = `DELETE FROM "to_do_list" WHERE id=$1;`;
+  const queryArray = [req.params.id];
+
+  pool
+    .query(queryText, queryArray)
+    .then((dbResponse) => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.warning(err);
       res.sendStatus(500);
     });
 });

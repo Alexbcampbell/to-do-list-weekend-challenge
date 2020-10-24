@@ -15,10 +15,21 @@
     <main>
       <div>
         <input type="text" class="js-task-in" placeholder="Task" />
-        <input type="text" class="js-status-in" placeholder="Status" />
+        <input type="text" class="js-status-in" placeholder="Completed" />
         <button class="js-btn-submit">Submit Task</button>
       </div>
-      <div></div>
+      <div>
+        <h2>All Tasks</h2>
+        <table class="taskTable">
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody class="viewTask"></tbody>
+        </table>
+      </div>
     </main>
   </body>
 </html>

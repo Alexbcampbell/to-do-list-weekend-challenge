@@ -5,12 +5,13 @@ $(document).ready(onReady);
 function onReady() {
   console.log('on ready');
   $('.js-btn-submit').on('click', submitTask);
+  getTask();
 }
 
 function submitTask() {
   let taskToSend = {
     task: $('.js-task-in').val(),
-    status: $('.js-status-in').val(),
+    complete: $('.js-status-in').val(),
   };
   saveTask(taskToSend);
 }
@@ -44,4 +45,17 @@ function saveTask(newTask) {
       console.log(err);
       alert('DID NOT SEND TASK');
     });
+}
+
+function render(response) {
+  listOfTasks = response;
+  $('.viewTask').empty();
+  for (let tasks of listOfTasks) {
+    $('.viewTask').append(`<tr>
+      <td>${tasks.task}</td>
+      <td>${tasks.complete}</td>
+      <td><button class="js-btn-complete" data-index="${tasks.id}">Complete</button></td>
+      <td><button class="js-btn-delete" data-index="${tasks.id}">Delete</button></td>
+      </tr>`);
+  }
 }
