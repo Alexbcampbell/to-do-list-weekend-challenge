@@ -52,7 +52,7 @@ function saveTask(newTask) {
 function updateTaskTransfer() {
   const index = $(this).data('index');
   taskChecker = {
-    complete: false,
+    complete: true,
   };
   console.log(index);
   $.ajax({
@@ -61,7 +61,7 @@ function updateTaskTransfer() {
     data: taskChecker,
   })
     .then((deleteMessage) => {
-      getKoalas();
+      getTask();
     })
     .catch((err) => {
       console.log(err);
