@@ -5,6 +5,8 @@ $(document).ready(onReady);
 function onReady() {
   console.log('on ready');
   $('.js-btn-submit').on('click', submitTask);
+  $('.viewTask').on('click', '.js-btn-complete', updateTaskTransfer);
+  $('.viewTask').on('click', '.js-btn-delete', deleteTask);
   getTask();
 }
 
@@ -47,15 +49,59 @@ function saveTask(newTask) {
     });
 }
 
+function updateTaskTransfer() {
+  const index = $(this).data('index');
+  taskChecker = {
+    complete: false,
+  };
+  console.log(index);
+  $.ajax({
+    type: 'PUT',
+    url: `/list/${index}`,
+    data: taskChecker,
+  })
+    .then((deleteMessage) => {
+      getKoalas();
+    })
+    .catch((err) => {
+      console.log(err);
+      alert('Could not update data');
+    });
+}
+
+function deleteTask() {
+  const index = $(this).data('index');
+  $.ajax({
+    type: 'DELETE',
+    url: `/list/${index}`,
+  })
+    .then((deleteMessage) => {
+      getTask();
+    })
+    .catch((err) => {
+      console.log(err);
+      alert('Could not update data');
+    });
+}
+
 function render(response) {
   listOfTasks = response;
   $('.viewTask').empty();
   for (let tasks of listOfTasks) {
-    $('.viewTask').append(`<tr>
+    if (tasks.complete == false) {
+      $('.viewTask').append(`<tr>
       <td>${tasks.task}</td>
       <td>${tasks.complete}</td>
       <td><button class="js-btn-complete" data-index="${tasks.id}">Complete</button></td>
       <td><button class="js-btn-delete" data-index="${tasks.id}">Delete</button></td>
       </tr>`);
+    } else {
+      $('.viewTask').append(`<tr>
+      <td>${tasks.task}</td>
+      <td>${tasks.complete}</td>
+      <td></td>
+      <td><button class="js-btn-delete" data-index="${tasks.id}">Delete</button></td>
+      </tr>`);
+    }
   }
 }

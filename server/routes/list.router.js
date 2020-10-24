@@ -49,7 +49,7 @@ router.post('/', function (req, res) {
 
 router.put('/:id', (req, res) => {
   const newTaskInfo = req.body;
-  const queryText = `UPDATE "to_do_list" SET complete=$1 WHERE id=$2;`;
+  const queryText = `UPDATE "to_do_list" SET complete=$2 WHERE id=$2;`;
   const queryArray = [newTaskInfo.complete, req.params.id];
 
   pool
