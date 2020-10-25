@@ -67,7 +67,7 @@ function updateTaskTransfer() {
       console.log(err);
       alert('Could not update data');
     });
-  $(this).parent().parent().addClass('green');
+  $(this).parent().addClass('green');
 }
 
 function deleteTask() {
