@@ -5,4 +5,4 @@ CREATE TABLE "to_do_list" (
 );	
 
 INSERT INTO "to_do_list" ("task", "complete")
-VALUES ('Laundry', 'false'), ('Wash the car', 'false'), ('Feed the animals', 'false'), ('Get groceries', 'false');
+VALUES ('Laundry', 'false'), ('Wash the car', 'false'), ('Feed the animals', 'false'), ('Get groceries', 'false'), ('Mow the lawn', 'false'), ('Walk dog', 'false');
